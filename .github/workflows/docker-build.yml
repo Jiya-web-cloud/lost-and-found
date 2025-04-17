@@ -25,9 +25,9 @@ jobs:
 
       - name: 🧱 Build Docker image
         run: |
-          docker build -t nikeetadhungel/lost-and-found:${{ github.sha }} -t nikeetadhungel/lost-and-found:latest .
+          docker build -t Jiya-web-cloud/lost-and-found:${{ github.sha }} -t Jiya-web-cloud/lost-and-found:latest .
 
       - name: 🚀 Push Docker image to Docker Hub
         run: |
-          docker push nikeetadhungel/lost-and-found:${{ github.sha }}
-          docker push nikeetadhungel/lost-and-found:latest
+          docker push Jiya-web-cloud/lost-and-found:${{ github.sha }}
+          docker push Jiya-web-cloud/lost-and-found:latest
