@@ -1,33 +1,31 @@
-name: Build and Push Docker Image
+name: Build and Push Docker image
 
 on:
   push:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📦 Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: 🛠 Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: 🔐 Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build Docker image
+      run: |
+        docker build -t devjiya01/lost-and-found .
 
-      - name: 🧱 Build Docker image
-        run: |
-          docker build -t Jiya-web-cloud/lost-and-found:${{ github.sha }} -t Jiya-web-cloud/lost-and-found:latest .
-
-      - name: 🚀 Push Docker image to Docker Hub
-        run: |
-          docker push Jiya-web-cloud/lost-and-found:${{ github.sha }}
-          docker push Jiya-web-cloud/lost-and-found:latest
+    - name: Push Docker image to Docker Hub
+      run: |
+        docker push devjiya01/lost-and-found
